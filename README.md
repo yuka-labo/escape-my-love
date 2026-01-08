@@ -1,0 +1,62 @@
+# 💕 Escape My Love
+
+**恋愛脱出ゲーム** - 閉じ込められた部屋から脱出できるか、それとも愛に絆されてしまうか。
+
+## 🎮 ゲーム概要
+
+あなたは愛する人に閉じ込められた部屋で目を覚ます。
+脱出を目指して探索するか、相手の甘い誘惑に身を委ねるか——選択はあなた次第。
+
+### 2つのエンディング
+
+- 🚪 **脱出成功** - 誘惑を振り切り、部屋から脱出する
+- 💕 **永住確定** - 愛に絆され、ここに留まることを選ぶ
+
+## ✨ 特徴
+
+- **キャラクターカスタマイズ** - プレイヤー名、相手役の名前・性格・口調を自由に設定
+- **AI生成シナリオ** - Gemini APIによる動的なストーリー展開
+- **セーブ/ロード機能** - 最大3つのセーブスロット
+- **PWA対応** - スマホのホーム画面に追加して遊べる
+
+## 🚀 遊び方
+
+### オンラインで遊ぶ
+
+👉 **[Escape My Love を遊ぶ](https://yuka-labo.github.io/escape-my-love/)**
+
+### ローカルで遊ぶ
+
+```bash
+git clone https://github.com/yuka-labo/escape-my-love.git
+cd escape-my-love
+python3 -m http.server 8080
+# http://localhost:8080 をブラウザで開く
+```
+
+## ⚙️ セットアップ
+
+1. **Gemini API Key を取得**
+   - [Google AI Studio](https://aistudio.google.com/app/apikey) でAPIキーを取得
+
+2. **ゲームを開く**
+   - メニュー（☰）→「🔑 API Key設定」からAPIキーを入力
+
+3. **キャラクターを設定**
+   - メニュー（☰）→「⚙️ キャラクター設定」で好みのキャラを設定
+
+4. **ゲームスタート！**
+
+## 🛠️ 技術スタック
+
+- HTML / CSS / JavaScript（Vanilla）
+- Gemini API（gemini-3-flash-preview）
+- PWA（Progressive Web App）
+
+## 📝 ライセンス
+
+MIT License
+
+---
+
+Made with 💕
