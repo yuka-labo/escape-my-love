@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Escape My Love</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Cinzel:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">Escape My Love</h1>
+            <button class="menu-btn" id="menuBtn" aria-label="メニュー">☰</button>
+        </header>
+
+        <!-- Parameter Display -->
+        <div class="parameter-bar">
+            <div class="param-item">
+                <span class="param-label">🚪 脱出度</span>
+                <div class="param-gauge">
+                    <div class="param-fill escape-fill" id="escapeGauge" style="width: 0%"></div>
+                </div>
+                <span class="param-value" id="escapeValue">0</span>
+            </div>
+            <div class="param-item">
+                <span class="param-label">💕 絆され度</span>
+                <div class="param-gauge">
+                    <div class="param-fill love-fill" id="loveGauge" style="width: 0%"></div>
+                </div>
+                <span class="param-value" id="loveValue">0</span>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <main class="chat-area" id="chatArea">
+            <!-- Messages will be inserted here -->
+        </main>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <form class="input-form" id="inputForm">
+                <input type="text" class="message-input" id="messageInput" placeholder="行動を入力..." autocomplete="off">
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <span class="send-icon">➤</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Menu Overlay -->
+        <div class="menu-overlay" id="menuOverlay">
+            <div class="menu-content">
+                <button class="menu-close" id="menuClose">✕</button>
+                <h2>Menu</h2>
+                <button class="menu-item" id="saveBtn">💾 セーブ</button>
+                <button class="menu-item" id="loadBtn">📂 ロード</button>
+                <button class="menu-item" id="newGameBtn">🔄 New Game</button>
+                <button class="menu-item" id="apiKeyBtn">🔑 API Key設定</button>
+                <div class="api-key-section" id="apiKeySection">
+                    <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Gemini API Key">
+                    <button class="api-key-save" id="apiKeySave">保存</button>
+                </div>
+                <button class="menu-item" id="settingsBtn">⚙️ キャラクター設定</button>
+            </div>
+        </div>
+
+        <!-- Settings Overlay -->
+        <div class="settings-overlay" id="settingsOverlay">
+            <div class="settings-content">
+                <button class="menu-close" id="settingsClose">✕</button>
+                <h2>キャラクター設定</h2>
+
+                <div class="settings-section">
+                    <h3>👤 プレイヤー</h3>
+                    <label class="settings-label">
+                        名前
+                        <input type="text" class="settings-input" id="settingsPlayerName" placeholder="日和">
+                    </label>
+                </div>
+
+                <div class="settings-section">
+                    <h3>💕 相手役</h3>
+                    <label class="settings-label">
+                        名前
+                        <input type="text" class="settings-input" id="settingsPartnerName" placeholder="クロウ">
+                    </label>
+                    <label class="settings-label">
+                        性格
+                        <textarea class="settings-textarea" id="settingsPartnerPersonality"
+                            placeholder="クールだが独占欲が強い。甘い言葉で相手を惑わす" rows="2"></textarea>
+                    </label>
+                    <label class="settings-label">
+                        一人称
+                        <input type="text" class="settings-input" id="settingsPartnerFirstPerson" placeholder="俺">
+                    </label>
+                    <label class="settings-label">
+                        二人称（プレイヤーの呼び方）
+                        <input type="text" class="settings-input" id="settingsPartnerSecondPerson" placeholder="お前">
+                    </label>
+                </div>
+
+                <div class="settings-section">
+                    <h3>🎭 シナリオ</h3>
+                    <label class="settings-label">
+                        二人の関係性
+                        <input type="text" class="settings-input" id="settingsRelationship"
+                            placeholder="愛しすぎるがゆえに閉じ込めている夫">
+                    </label>
+                    <label class="settings-label">
+                        ゲームの舞台
+                        <textarea class="settings-textarea" id="settingsGameSetting"
+                            placeholder="豪華な部屋。シルクのシーツ、アンティークの家具、薄暗い照明..." rows="2"></textarea>
+                    </label>
+                </div>
+
+                <button class="settings-save" id="settingsSave">💾 保存してNew Game</button>
+                <p class="settings-note">※ 設定はブラウザに保存されます</p>
+            </div>
+        </div>
+
+        <!-- Save/Load Overlay -->
+        <div class="save-load-overlay" id="saveLoadOverlay">
+            <div class="save-load-content">
+                <button class="menu-close" id="saveLoadClose">✕</button>
+                <h2 id="saveLoadTitle">セーブ</h2>
+                <div class="save-load-slots" id="saveLoadSlots">
+                    <!-- Slots will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Ending Overlay -->
+        <div class="ending-overlay" id="endingOverlay">
+            <div class="ending-content">
+                <h2 class="ending-title" id="endingTitle"></h2>
+                <p class="ending-text" id="endingText"></p>
+                <button class="ending-btn" id="endingBtn">もう一度プレイ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
