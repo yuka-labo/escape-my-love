@@ -2,7 +2,7 @@
   "name": "Escape My Love",
   "short_name": "Escape My Love",
   "description": "恋愛脱出ゲーム - 閉じ込められた部屋から脱出せよ",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0d0a0a",
   "theme_color": "#1a0a0a",
