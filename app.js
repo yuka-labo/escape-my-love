@@ -13,7 +13,7 @@ const MAX_SAVE_SLOTS = 3;
 
 // Default character settings
 const DEFAULT_SETTINGS = {
-    playerName: '日和',
+    playerName: 'ひより',
     partnerName: 'クロウ',
     partnerPersonality: 'クールだが独占欲が強い。甘い言葉で相手を惑わし、脱出を阻止しようとする',
     partnerFirstPerson: '俺',
@@ -954,7 +954,7 @@ async function init() {
 
     if (!hasSettings) {
         // First time - show welcome message
-        addSystemMessage('✨ ようこそ Escape My Love へ！');
+        addSystemMessage('ようこそ Escape My Love へ');
         addSystemMessage('メニュー（☰）から「🔑 API Key設定」と「⚙️ キャラクター設定」を行ってからゲームを始めてください。');
     } else {
         // Check for API key
