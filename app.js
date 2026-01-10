@@ -97,7 +97,12 @@ const elements = {
     settingsPartnerFirstPerson: document.getElementById('settingsPartnerFirstPerson'),
     settingsPartnerSecondPerson: document.getElementById('settingsPartnerSecondPerson'),
     settingsRelationship: document.getElementById('settingsRelationship'),
-    settingsGameSetting: document.getElementById('settingsGameSetting')
+    settingsGameSetting: document.getElementById('settingsGameSetting'),
+    // Terms elements
+    termsBtn: document.getElementById('termsBtn'),
+    termsOverlay: document.getElementById('termsOverlay'),
+    termsClose: document.getElementById('termsClose'),
+    termsCloseBtn: document.getElementById('termsCloseBtn')
 };
 
 // ========================================
@@ -455,6 +460,70 @@ function closeSaveLoadOverlay() {
 }
 
 // ========================================
+// Retry Function
+// ========================================
+
+function showRetryButton(lastInput) {
+    const retryDiv = document.createElement('div');
+    retryDiv.className = 'retry-trigger';
+    retryDiv.innerHTML = `
+        <p class="retry-message">応答の生成に問題がありました</p>
+        <button class="retry-btn">🔄 リトライ</button>
+    `;
+    elements.chatArea.appendChild(retryDiv);
+    scrollToBottom();
+
+    retryDiv.querySelector('.retry-btn').addEventListener('click', async () => {
+        retryDiv.remove();
+
+        // Remove the last fallback response from history
+        if (gameState.history.length > 0 && gameState.history[gameState.history.length - 1].role === 'model') {
+            gameState.history.pop();
+        }
+
+        // Remove the fallback message from UI
+        const messages = elements.chatArea.querySelectorAll('.message-crow');
+        if (messages.length > 0) {
+            messages[messages.length - 1].remove();
+        }
+
+        gameState.isProcessing = true;
+        elements.sendBtn.disabled = true;
+        showTypingIndicator();
+
+        const response = await callGeminiAPI(lastInput, true);
+
+        hideTypingIndicator();
+
+        if (response) {
+            addMessage(formatCrowMessage(response), 'crow');
+
+            if (response.isFallback) {
+                showRetryButton(lastInput);
+            }
+
+            updateParameters(response.escape_change || 0, response.love_change || 0);
+
+            if (response.escape_change > 0) {
+                addSystemMessage(`🚪 脱出度 +${response.escape_change}`);
+            }
+            if (response.love_change > 0) {
+                addSystemMessage(`💕 絆され度 +${response.love_change}`);
+            }
+
+            if (gameState.pendingEnding) {
+                gameState.isGameOver = true;
+                showEpilogueButton(gameState.pendingEnding);
+                return;
+            }
+        }
+
+        gameState.isProcessing = false;
+        elements.sendBtn.disabled = false;
+    });
+}
+
+// ========================================
 // Ending Functions
 // ========================================
 
@@ -697,7 +766,8 @@ async function callGeminiAPI(userMessage, isRetry = false) {
             dialogue: cleanText || `${characterSettings.partnerName}は静かに微笑んだ。`,
             escape_change: 0,
             love_change: 0,
-            hint: ''
+            hint: '',
+            isFallback: true
         };
 
     } catch (error) {
@@ -750,6 +820,11 @@ async function processPlayerInput(input) {
     if (response) {
         // Show Crow's response
         addMessage(formatCrowMessage(response), 'crow');
+
+        // Show retry button if this was a fallback response
+        if (response.isFallback) {
+            showRetryButton(input);
+        }
 
         // Update parameters
         updateParameters(response.escape_change || 0, response.love_change || 0);
@@ -943,6 +1018,26 @@ elements.settingsOverlay.addEventListener('click', (e) => {
 });
 
 elements.settingsSave.addEventListener('click', saveAndStartNewGame);
+
+// Terms overlay
+elements.termsBtn.addEventListener('click', () => {
+    elements.termsOverlay.classList.add('active');
+    elements.menuOverlay.classList.remove('active');
+});
+
+elements.termsClose.addEventListener('click', () => {
+    elements.termsOverlay.classList.remove('active');
+});
+
+elements.termsCloseBtn.addEventListener('click', () => {
+    elements.termsOverlay.classList.remove('active');
+});
+
+elements.termsOverlay.addEventListener('click', (e) => {
+    if (e.target === elements.termsOverlay) {
+        elements.termsOverlay.classList.remove('active');
+    }
+});
 
 // ========================================
 // Initialize

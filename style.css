@@ -376,6 +376,40 @@ body {
     box-shadow: 0 6px 20px rgba(196, 82, 106, 0.4);
 }
 
+/* Retry Trigger Button */
+.retry-trigger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    text-align: center;
+}
+
+.retry-message {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.retry-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.retry-btn:hover {
+    border-color: var(--accent-rose);
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
 /* ========================================
    Input Area
 ======================================== */
@@ -579,10 +613,106 @@ body {
     font-family: var(--font-body);
     cursor: pointer;
     transition: background var(--transition-fast);
+    margin-bottom: var(--spacing-sm);
 }
 
 .api-key-save:hover {
     background: var(--accent-rose-light);
+}
+
+.menu-item-secondary {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: var(--spacing-sm);
+}
+
+/* ========================================
+   Terms Overlay
+======================================== */
+
+.terms-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 180;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.terms-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.terms-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform var(--transition-normal);
+}
+
+.terms-overlay.active .terms-content {
+    transform: scale(1);
+}
+
+.terms-content h2 {
+    font-family: var(--font-display);
+    color: var(--accent-rose-light);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.terms-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.terms-text p {
+    margin-bottom: var(--spacing-md);
+}
+
+.terms-text ul {
+    margin: 0;
+    padding-left: var(--spacing-lg);
+}
+
+.terms-text li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.terms-close-btn {
+    display: block;
+    width: 100%;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-sm);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.terms-close-btn:hover {
+    border-color: var(--accent-rose);
+    color: var(--text-primary);
 }
 
 /* ========================================

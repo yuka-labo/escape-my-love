@@ -81,6 +81,26 @@
                     <button class="api-key-save" id="apiKeySave">保存</button>
                 </div>
                 <button class="menu-item" id="settingsBtn">⚙️ キャラクター設定</button>
+                <button class="menu-item menu-item-secondary" id="termsBtn">📜 利用規約</button>
+            </div>
+        </div>
+
+        <!-- Terms Overlay -->
+        <div class="terms-overlay" id="termsOverlay">
+            <div class="terms-content">
+                <button class="menu-close" id="termsClose">✕</button>
+                <h2>⚠️ 免責事項</h2>
+                <div class="terms-text">
+                    <p>本アプリケーションは、Google Gemini APIを利用したテキスト生成ツールです。</p>
+                    <ul>
+                        <li>生成されるテキストの内容について、開発者は一切の責任を負いません。</li>
+                        <li>公序良俗に反する入力や、法に触れる用途での利用は固く禁じます。</li>
+                        <li>利用者は、自身の責任において本アプリケーションおよびAPIキーを利用するものとします。</li>
+                    </ul>
+                    <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.85rem;">🔒
+                        データはすべてブラウザ内に保存され、開発者のサーバーには送信されません。</p>
+                </div>
+                <button class="terms-close-btn" id="termsCloseBtn">閉じる</button>
             </div>
         </div>
 
